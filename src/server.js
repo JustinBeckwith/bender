@@ -8,15 +8,16 @@ const token = nconf.get('token');
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
-const commandFiles = (await fs.promises.readdir('./build/src/commands')).filter((file) =>
+client.commands = new Collection();
+const commandFiles = (await fs.promises.readdir('./src/commands')).filter((file) =>
   file.endsWith('.js')
 );
 for (const file of commandFiles) {
   const command = await import(`./commands/${file}`);
-  client.application!.commands.set(command.data.name, command);
+  client.commands.set(command.data.name, command);
 }
 
-const eventFiles = (await fs.promises.readdir('./build/src/events')).filter((file) =>
+const eventFiles = (await fs.promises.readdir('./src/events')).filter((file) =>
   file.endsWith('.js')
 );
 for (const file of eventFiles) {

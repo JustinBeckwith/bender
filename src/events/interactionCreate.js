@@ -1,15 +1,13 @@
-import { Interaction } from "discord.js";
-
 export const name = 'interactionCreate';
-export async function execute(interaction: Interaction) {
+export async function execute(interaction) {
   console.log(
-    `${interaction.user.tag} in #${(interaction.channel as any).name} triggered an interaction.`
+    `${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`
   );
   if (!interaction.isCommand()) {
     return;
   }
 
-  const command = (interaction.client as any).commands.get(interaction.commandName);
+  const command = interaction.client.commands.get(interaction.commandName);
   if (!command) {
     return;
   }

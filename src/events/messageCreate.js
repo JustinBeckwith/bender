@@ -1,7 +1,5 @@
-import { MessageInteraction } from "discord.js";
-
 export const name = 'messageCreate';
-export async function execute(interaction: MessageInteraction) {
+export async function execute(interaction) {
   console.log('hello from messageCreate!');
   console.log(interaction);
   // if (!interaction.isCommand()) {
