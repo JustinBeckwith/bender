@@ -1,6 +1,7 @@
 import { Client, Collection, Intents } from 'discord.js';
 import fs from 'fs';
 import nconf from 'nconf';
+import http from 'http';
 
 nconf.env().file({ file: 'config.json' });
 const token = nconf.get('token');
@@ -30,3 +31,8 @@ for (const file of eventFiles) {
 }
 
 client.login(token);
+
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('beep boop');
+}).listen(process.env.port || 8080);
